@@ -5,8 +5,9 @@ import { createBrowserClient } from "@supabase/ssr";
  * Adheres to SECURITY.md: only uses the public anonymous key, preserving RLS barriers.
  */
 export function createClient() {
-  const supabaseUrl =
-    process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder-xanso.supabase.co";
+  const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const isValidUrl = rawUrl.startsWith("http://") || rawUrl.startsWith("https://");
+  const supabaseUrl = isValidUrl ? rawUrl : "https://placeholder-xanso.supabase.co";
   const supabaseAnonKey =
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key";
 

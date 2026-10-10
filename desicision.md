@@ -126,6 +126,17 @@ When the Antigravity agent executes a task and makes a localized architectural o
     2. Integrated an interactive Web Audio API 432 Hz Solfeggio Singing Bowl Bell synthesizer (`src/lib/sound.ts`) with live sound wave animations.
     3. Implemented continuous floating micro-animations on stat cards and limited offer badges.
 *   **Rationale:** Replaces placeholders with museum-quality wellness assets and sensory micro-interactions, dramatically heightening perceived quality without external audio library dependencies.
-*   **Consequences:** Static image assets stored locally under `public/images/`.
+### ADR-020: Botanical Editorial Luxury Design System Remake from Figma Specification
+*   **Date:** 2026-10-10
+*   **Context:** Re-architecting the web platform to match the user's Figma design specification (node-id: 0-1), MacBook Pro 14" hero reference, and `DESIGN.md`.
+*   **Decision:**
+    1. Implemented a Full-Bleed 100% Cover Hero image (`/images/hero-grass-mat.jpg`) featuring an overhead view of a yoga practitioner meditating on a grey mat laid over a lush green lawn with dramatic palm shadows.
+    2. Overlaid the top navigation (`Xanso.Fitness`, `Programs`, `Timings`, `Pricing`, `Instructors`, `Reviews`) transparently on the top border.
+    3. Left-aligned the hero copy ("Get fit from the comfort of your home.", eyebrow tag, and subtitle) with a frosted pill button `Start on Whatsapp` and underlined `See batch timings` link.
+    4. Rendered the 4-column bottom metrics strip (`10000+ members`, `4.9/5 Google rating`, `8batches every weekday.IST`, `100%Live real-time posture cues`) overlaid along the bottom edge of the hero cover.
+    5. Rebuilt "Daily live batches" with an unboxed, airy editorial schedule layout flanking a seamless multiply-blended monochrome yogi silhouette (`/images/yogi-pose-exact.jpg`) intertwined with the dynamic neon-lime curving ribbon graphic, eliminating rectangular box clipping.
+    6. Rebuilt "Three ways to train with us" and "SIMPLE MEMBERSHIP PLANS" to complete the Figma design language.
+*   **Rationale:** Faithfully reflects the high-fashion editorial wellness aesthetic and full-bleed hero cover layout defined in the Figma reference.
+*   **Consequences:** Seamless full-viewport immersion with responsive mobile adaptations.
 
 

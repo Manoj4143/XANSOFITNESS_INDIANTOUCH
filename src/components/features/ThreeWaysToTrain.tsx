@@ -1,76 +1,12 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { Users, UserCheck, Building2, CheckCircle2, ArrowRight, MessageCircle } from "lucide-react";
-import { SurfaceCard } from "@/components/ui/SurfaceCard";
-import { Button } from "@/components/ui/Button";
-
-const TRAINING_PATHWAYS = [
-  {
-    id: "group-yoga",
-    title: "1. Group Yoga Sessions",
-    tagline: "Live on Zoom • Morning & Evening IST",
-    description:
-      "Our live group yoga classes help you build flexibility, relieve tension and boost posture. Ideal if you're at a desk most of the day or want to move more without heavy equipment.",
-    icon: Users,
-    badge: "Most Accessible",
-    badgeColor: "bg-amber-100 text-amber-900 border-amber-300",
-    features: [
-      "Certified instructor led sessions",
-      "Beginner, low-impact movements",
-      "Focus on flexibility, breathing & spine health",
-      "Live via Zoom (Morning & Evening IST batches)",
-      "Free customized Indian diet plan included",
-    ],
-    ctaText: "Explore Group Batches (10% Off)",
-    ctaLink: "#pricing",
-    accent: "from-amber-500/10 to-primary/5",
-  },
-  {
-    id: "personal-transformation",
-    title: "2. 1:1 Transformation Plans",
-    tagline: "Tailored Coaching • Direct Trainer WhatsApp",
-    description:
-      "For those who want structured workouts, guaranteed results and personal guidance. You'll get a tailored strength training plan, nutrition support and daily check-ins so you stay on track.",
-    icon: UserCheck,
-    badge: "Personalized",
-    badgeColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
-    features: [
-      "Custom plan as per goal",
-      "Nutrition & habit guidance (Sattvic & High-Protein)",
-      "Weekly progress tracking",
-      "Accountability partner with daily check-ins",
-      "Monthly diet changes & direct access to instructor",
-    ],
-    ctaText: "Begin 1:1 Transformation (10% Off)",
-    ctaLink: "#pricing",
-    accent: "from-emerald-500/10 to-teal-500/5",
-  },
-  {
-    id: "corporate-sessions",
-    title: "3. Corporate Sessions",
-    tagline: "Virtual & On-Site • IT Workplace Wellness",
-    description:
-      "We work with companies to deliver on-site or virtual wellness sessions that reduce fatigue and energise teams. Ideal for organisations that care about employee health & culture.",
-    icon: Building2,
-    badge: "For Organizations",
-    badgeColor: "bg-primary/15 text-primary border-primary/30",
-    features: [
-      "Virtual or on-site delivery",
-      "Tailored to team size",
-      "Improves energy and productivity at work",
-      "Relieves screen fatigue & cervical neck stiffness",
-      "Easy for HR & managers to implement",
-    ],
-    ctaText: "Inquire for Corporate Team",
-    ctaLink: "#corporate",
-    accent: "from-primary/10 to-amber-500/5",
-  },
-];
+import { ArrowUpRight } from "lucide-react";
 
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 25 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -80,119 +16,148 @@ const fadeInUp: Variants = {
 
 export function ThreeWaysToTrain() {
   const WHATSAPP_NUMBER = "919105837321";
+  const corporateWaUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    "Hi Xanso Fitness! I want to enquire about Corporate Wellness sessions for our team."
+  )}`;
+  const transformationWaUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    "Hi Xanso Fitness! I want to begin a 1:1 Transformation Plan."
+  )}`;
 
   return (
-    <section className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-        className="text-center max-w-3xl mx-auto mb-16 space-y-4"
-      >
-        <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-          STRUCTURED WELLNESS ARCHITECTURE
-        </span>
-        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-normal text-text-main">
-          Three Ways to{" "}
-          <span className="font-accent text-primary text-4xl sm:text-5xl md:text-6xl ml-1">
-            Train with Us
-          </span>
-        </h2>
-        <p className="font-sans text-sm sm:text-base text-text-muted leading-relaxed">
-          From live group classes to private 1:1 mentorship and enterprise team sessions, choose the pathway that honors your fitness journey.
-        </p>
-      </motion.div>
+    <section id="pathways" className="py-24 md:py-36 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+        {/* Left Column: The Form Collective Editorial Card */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="lg:col-span-5 relative rounded-3xl overflow-hidden min-h-[480px] lg:min-h-[580px] group shadow-card"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/form-collective.jpg"
+            alt="The Form Collective - Purpose Driven Physical Therapy"
+            className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-      {/* 3 Pathway Cards */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ staggerChildren: 0.12 }}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch"
-      >
-        {TRAINING_PATHWAYS.map((pathway) => {
-          const Icon = pathway.icon;
-          return (
-            <motion.div key={pathway.id} variants={fadeInUp} className="flex">
-              <SurfaceCard
-                hoverEffect
-                className={`relative p-8 flex flex-col justify-between w-full h-full border border-border/80 shadow-soft bg-gradient-to-b ${pathway.accent} to-surface transition-all`}
-              >
-                <div className="space-y-6">
-                  {/* Top Icon & Badge */}
-                  <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-surface border border-border shadow-xs text-primary flex items-center justify-center">
-                      <Icon className="w-6 h-6 stroke-[1.75]" />
-                    </div>
-                    <span
-                      className={`text-[10px] font-sans font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${pathway.badgeColor}`}
-                    >
-                      {pathway.badge}
-                    </span>
-                  </div>
+          {/* Editorial Typography Overlay */}
+          <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-between text-white">
+            <div className="space-y-1">
+              <span className="font-display italic text-2xl sm:text-3xl font-light tracking-wide text-white/90">
+                The
+              </span>
+              <h3 className="font-sans font-bold text-3xl sm:text-4xl tracking-tight leading-none">
+                FORM
+                <br />
+                COLLECTIVE
+              </h3>
+            </div>
 
-                  <div>
-                    <h3 className="font-display text-2xl font-semibold text-text-main">
-                      {pathway.title}
-                    </h3>
-                    <p className="font-sans text-xs text-primary font-semibold mt-1">
-                      {pathway.tagline}
-                    </p>
-                    <p className="font-sans text-xs sm:text-sm text-text-muted mt-3 leading-relaxed">
-                      {pathway.description}
-                    </p>
-                  </div>
+            <div className="space-y-2">
+              <p className="text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold text-white/80">
+                PURPOSE-DRIVEN PHYSICAL THERAPY BY STUDIO ELEVATE
+              </p>
+              <p className="text-xs text-white/70 max-w-xs font-sans leading-relaxed">
+                Sculpting alignment, restoring joint decompression, and cultivating mindful strength through precision movement.
+              </p>
+            </div>
+          </div>
+        </motion.div>
 
-                  {/* Feature Bullets */}
-                  <div className="pt-4 border-t border-border/60 space-y-2.5">
-                    <span className="text-xs uppercase tracking-wider font-semibold text-text-main block">
-                      Program Highlights:
-                    </span>
-                    <ul className="space-y-2">
-                      {pathway.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className="flex items-start gap-2.5 text-xs sm:text-sm font-sans text-text-muted"
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+        {/* Right Column: Three Ways to Train Pathways */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="lg:col-span-7 flex flex-col justify-between space-y-8"
+        >
+          {/* Header */}
+          <div className="space-y-3">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-5xl font-medium tracking-tight text-forest-deep leading-tight">
+              Three ways to train with us
+            </h2>
+            <p className="font-sans text-base sm:text-lg text-muted-gray max-w-xl">
+              Pick the pathway that fits your life, not the other way around.
+            </p>
+          </div>
 
-                {/* Bottom CTA */}
-                <div className="pt-6 mt-6 border-t border-border/60 space-y-2">
-                  <Button
-                    variant="primary"
-                    size="md"
-                    href={pathway.ctaLink}
-                    className="w-full justify-center"
-                  >
-                    <span>{pathway.ctaText}</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                  </Button>
-                  <a
-                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                      `Hi! I would like to learn more about "${pathway.title}" with 10% discount.`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 w-full py-2 text-xs font-sans text-emerald-700 hover:text-emerald-800 font-medium"
-                  >
-                    <MessageCircle className="w-3.5 h-3.5" />
-                    <span>Quick Consultation on WhatsApp</span>
-                  </a>
-                </div>
-              </SurfaceCard>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {/* 1. Group Yoga Card */}
+            <div className="bg-neutral-surface rounded-3xl p-7 flex flex-col justify-between space-y-6 hover:shadow-card transition-all duration-300">
+              <div className="space-y-3">
+                <h3 className="font-display text-2xl font-semibold text-charcoal">
+                  Group Yoga
+                </h3>
+                <p className="font-sans text-sm text-muted-gray leading-relaxed">
+                  Daily interactive zoom batches with certified instructors. Morning and evening slots.
+                </p>
+              </div>
+
+              <div>
+                <a
+                  href="#schedule"
+                  className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-charcoal hover:text-primary transition-colors group"
+                >
+                  <span className="underline underline-offset-4">Explore schedule</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* 2. Transformation Card (Lime Accent) */}
+            <div className="bg-lime-accent rounded-3xl p-7 flex flex-col justify-between space-y-6 hover:shadow-card transition-all duration-300">
+              <div className="space-y-3">
+                <h3 className="font-display text-2xl font-semibold text-lime-text">
+                  Transformation
+                </h3>
+                <p className="font-sans text-sm text-lime-text/90 leading-relaxed">
+                  Custom plan for your body, dedicated 1:1 guidance, and real-time form checks when you need it.
+                </p>
+              </div>
+
+              <div>
+                <a
+                  href={transformationWaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-lime-text hover:text-black transition-colors group"
+                >
+                  <span className="underline underline-offset-4">Begin 1:1</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* 3. Corporate Sessions Card (Spans 2 columns on tablet/desktop) */}
+            <div className="sm:col-span-2 bg-neutral-surface rounded-3xl p-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 hover:shadow-card transition-all duration-300">
+              <div className="space-y-2 max-w-lg">
+                <h3 className="font-display text-2xl font-semibold text-charcoal">
+                  Corporate Sessions
+                </h3>
+                <p className="font-sans text-sm text-muted-gray leading-relaxed">
+                  Wellness sessions for your team designed to boost focus, posture, and energy across every department.
+                </p>
+              </div>
+
+              <div className="flex-shrink-0">
+                <a
+                  href={corporateWaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-charcoal hover:text-primary transition-colors group"
+                >
+                  <span className="underline underline-offset-4">Enquire your team</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

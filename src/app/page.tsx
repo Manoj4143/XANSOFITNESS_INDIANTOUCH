@@ -2,31 +2,19 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
-  Lock,
-  Star,
-  Video,
-  Sliders,
-  Clock,
-  ShieldCheck,
+  MessageCircle,
   ArrowRight,
-  ArrowUpRight,
   Sparkles,
-  Heart,
-  Flame,
-  Wind,
   CheckCircle2,
   Mail,
   MapPin,
-  Building2,
-  Phone,
   Send,
-  X,
-  Volume2,
-  MessageCircle,
-  Tag,
-  Percent,
+  Star,
+  Users,
+  ShieldCheck,
+  Video,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -43,7 +31,6 @@ import { ExpertBlogs } from "@/components/features/ExpertBlogs";
 import { XansoFAQ } from "@/components/features/XansoFAQ";
 import { WellnessConcierge } from "@/components/ai/WellnessConcierge";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-import { playSanctuaryChime } from "@/lib/sound";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -62,276 +49,170 @@ const staggerContainer: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.14,
+      staggerChildren: 0.15,
     },
   },
 };
 
-const STATS_DATA = [
-  {
-    icon: Video,
-    number: "100%",
-    label: "Live Interactive via Zoom",
-    description: "Daily interactive classes with real-time audio posture corrections",
-  },
-  {
-    icon: Clock,
-    number: "8 Batches",
-    label: "Daily Morning & Evening IST",
-    description: "4 morning slots & 4 evening slots with flexible batch switching",
-  },
-  {
-    icon: Sliders,
-    number: "10,000+",
-    label: "Clients Transformed",
-    description: "Proven 82% success rate in healthy weight loss & flexibility",
-  },
-  {
-    icon: ShieldCheck,
-    number: "10% Extra",
-    label: "Discount vs Xanso Standard",
-    description: "Exclusive community pricing + Free customized Indian diet plan",
-  },
-];
-
-const CATEGORY_ITEMS = [
-  {
-    title: "Live Group Yoga Sessions",
-    level: "All Levels",
-    description: "Certified instructor led sessions via Zoom focusing on flexibility, breathing, and posture.",
-    duration: "4 Morning & 4 Evening Batches",
-    icon: Flame,
-    accent: "from-[#F6EDE8] to-[#ECD8CF]",
-    badgeColor: "bg-surface/90 text-primary",
-  },
-  {
-    title: "1:1 Transformation Plans",
-    level: "Personalized",
-    description: "Tailored strength training plan, nutrition support and daily WhatsApp check-ins.",
-    duration: "Custom Goal Oriented",
-    icon: Heart,
-    accent: "from-[#EFECE8] to-[#E3DCD3]",
-    badgeColor: "bg-surface/90 text-[#605B54]",
-  },
-  {
-    title: "7-Day Signature Face Yoga",
-    level: "Special Bonus",
-    description: "Ayush certified facial muscle sculpting, lymphatic drainage, and natural skin glow.",
-    duration: "20-25 min daily",
-    icon: Sparkles,
-    accent: "from-[#F8EDE6] to-[#EAD5C8]",
-    badgeColor: "bg-surface/90 text-primary",
-  },
-  {
-    title: "Corporate Team Sessions",
-    level: "For Companies",
-    description: "Virtual or on-site delivery reducing fatigue, neck stiffness, and boosting productivity.",
-    duration: "Custom Team Timings",
-    icon: Wind,
-    accent: "from-[#F3ECE4] to-[#E7DDD0]",
-    badgeColor: "bg-surface/90 text-[#7C6E5F]",
-  },
+const HERO_STATS = [
+  { value: "10,000+", label: "members", sublabel: "Transformed across India" },
+  { value: "4.8/5", label: "avg rating", sublabel: "Verified student reviews" },
+  { value: "Qualified", label: "instructors", sublabel: "Ayush & Yoga Alliance certified" },
+  { value: "100% Live", label: "non-recorded classes", sublabel: "Real-time audio form feedback" },
 ];
 
 export default function HomePage() {
   const [contactSubmitted, setContactSubmitted] = React.useState(false);
-  const [chimeActive, setChimeActive] = React.useState(false);
 
   const WHATSAPP_NUMBER = "919105837321";
   const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    "Hi Xanso Fitness! I want to start my fitness journey and claim the extra 10% discount on live yoga batches."
+    "Hi Xanso Fitness! I want to start my yoga journey with the female-only batch from home."
   )}`;
 
-  const handlePlayChime = () => {
-    playSanctuaryChime();
-    setChimeActive(true);
-    setTimeout(() => setChimeActive(false), 3800);
-  };
-
   return (
-    <div className="min-h-screen bg-background text-text-main flex flex-col font-sans selection:bg-primary/20 selection:text-primary">
-      {/* Sticky Global Navigation */}
+    <div className="min-h-screen bg-background text-text-main flex flex-col font-sans selection:bg-lime-accent selection:text-lime-text">
+      {/* Botanical Dark Glass Floating Navigation */}
       <Navbar />
 
       <main className="flex-1">
         {/* ========================================================
-            1. HERO SECTION (Split Layout with Exact xanso.in Copy)
+            1. HERO SECTION (Full Cover Image from Figma Reference)
         ======================================================== */}
-        <section className="relative pt-10 md:pt-16 pb-20 md:pb-32 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Typography & CTAs */}
+        <section className="relative min-h-[95vh] sm:min-h-screen w-full flex flex-col justify-between overflow-hidden bg-forest-deep text-white">
+          {/* Full Cover Background Picture */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/hero-grass-mat.jpg"
+            alt="Practitioner meditating on yoga mat on grass lawn with palm shadows"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+
+          {/* Contrast scrims */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/35 pointer-events-none" />
+
+          {/* Left Hero Typography Content */}
+          <div className="relative z-10 max-w-7xl w-full mx-auto px-6 sm:px-10 lg:px-16 pt-36 sm:pt-44 pb-12 flex-1 flex flex-col justify-center">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={staggerContainer}
-              className="md:col-span-6 lg:col-span-7 space-y-6 md:space-y-8 z-10"
+              className="max-w-xl space-y-5 text-left"
             >
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2">
-                <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-emerald-800 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200">
-                  NAMASTE &bull; XANSO ONLINE FITNESS CLASSES
-                </span>
-                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
-                  Extra 10% OFF
+              {/* Eyebrow */}
+              <motion.div variants={fadeInUp}>
+                <span className="text-xs sm:text-[13px] uppercase tracking-[0.2em] font-sans font-medium text-white/95 block">
+                  LIVE YOGA ON ZOOM &bull; FEMALE-ONLY BATCHES
                 </span>
               </motion.div>
 
+              {/* Headline */}
               <motion.h1
                 variants={fadeInUp}
-                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-text-main leading-[1.08]"
+                className="font-sans text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white leading-[1.08]"
               >
-                Get Fit from the Comfort of Your{" "}
-                <span className="font-accent text-primary text-5xl sm:text-6xl md:text-7xl lg:text-8xl block mt-1">
-                  Home
-                </span>
+                Get fit from the
+                <br />
+                comfort of your
+                <br />
+                home.
               </motion.h1>
 
+              {/* Subtitle */}
               <motion.p
                 variants={fadeInUp}
-                className="font-sans text-base sm:text-lg md:text-xl text-text-muted max-w-xl leading-relaxed"
+                className="font-sans text-sm sm:text-base text-white/85 max-w-md leading-relaxed font-light"
               >
-                Join India&apos;s most loved online program that has been created by expert guidance to help you loose weight easily and get in shape from the comfort of your home. Live interactive classes via Zoom with a free personalized Indian diet plan upon joining!
+                Live, interactive classes with certified instructors, 8 flexible batches a day, and a free personalised Indian diet plan when you join.
               </motion.p>
 
-              {/* 4 Feature Highlights */}
-              <motion.div variants={fadeInUp} className="grid grid-cols-2 gap-3 pt-1">
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-text-main font-medium">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>Live &amp; Interactive on Zoom</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-text-main font-medium">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>Flexible Timings on Daily Basis</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-text-main font-medium">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>Free Personalized Diet Plan</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-text-main font-medium">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>Weekly Follow-Ups for Regularity</span>
-                </div>
-              </motion.div>
-
+              {/* CTAs */}
               <motion.div
                 variants={fadeInUp}
-                className="flex flex-wrap items-center gap-4 pt-2"
+                className="flex items-center gap-6 pt-3"
               >
-                <Button variant="primary" size="lg" href="#pricing">
-                  YES, I WANT TO START MY FITNESS JOURNEY!
-                  <ArrowRight className="w-4 h-4 ml-1.5" />
-                </Button>
-
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-sm font-semibold shadow-soft transition-all"
+                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-xs sm:text-sm font-sans font-medium text-white bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 transition-all duration-200 hover:scale-[1.02]"
                 >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>Chat on WhatsApp: +91 91058 37321</span>
+                  <MessageCircle className="w-4 h-4 mr-2 fill-current" />
+                  <span>Start on Whatsapp</span>
+                </a>
+
+                <a
+                  href="#schedule"
+                  className="text-xs sm:text-sm font-sans font-normal text-white underline underline-offset-8 hover:text-white/80 transition-colors"
+                >
+                  See batch timings
                 </a>
               </motion.div>
-
-              {/* Interactive Solfeggio 432 Hz Sound Bell */}
-              <motion.div variants={fadeInUp} className="pt-2">
-                <button
-                  type="button"
-                  onClick={handlePlayChime}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-surfaceVariant/60 hover:bg-surfaceVariant text-xs font-sans text-text-muted hover:text-text-main transition-colors group cursor-pointer"
-                >
-                  <Volume2
-                    className={`w-3.5 h-3.5 text-primary transition-transform group-hover:scale-110 ${
-                      chimeActive ? "animate-pulse" : ""
-                    }`}
-                  />
-                  <span>
-                    {chimeActive
-                      ? "Acoustic Resonance Flowing (432 Hz)..."
-                      : "Sound Bell: Himalayan Singing Bowl (432 Hz)"}
-                  </span>
-                </button>
-              </motion.div>
             </motion.div>
+          </div>
 
-            {/* Right Column: Hero Visual Asset (Preserved Picture) */}
+          {/* Bottom 4-Column Stats Strip directly matching Figma reference */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pb-8 sm:pb-12">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="md:col-span-6 lg:col-span-5 relative"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 text-white/90"
             >
-              <div className="relative mx-auto max-w-md">
-                {/* Decorative Indian Mandala Glow */}
-                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-primary/10 via-amber-500/10 to-emerald-500/10 blur-2xl -z-10" />
+              <div>
+                <span className="font-sans text-2xl sm:text-3xl lg:text-4xl font-light text-white block">
+                  10000+
+                </span>
+                <span className="font-sans text-xs text-white/80 block mt-0.5">
+                  members
+                </span>
+              </div>
 
-                <SurfaceCard
-                  hoverEffect
-                  className="relative overflow-hidden rounded-3xl border border-border shadow-card p-2 bg-surface"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/hero-yoga.jpg"
-                    alt="Authentic Indian Yoga & Fitness"
-                    className="w-full h-[460px] sm:h-[500px] object-cover rounded-2xl"
-                  />
+              <div>
+                <span className="font-sans text-2xl sm:text-3xl lg:text-4xl font-light text-white block">
+                  4.9/5
+                </span>
+                <span className="font-sans text-xs text-white/80 block mt-0.5">
+                  Google rating
+                </span>
+              </div>
 
-                  {/* Floating Overlay Badge: Live Zoom */}
-                  <div className="absolute top-5 left-5 px-3.5 py-1.5 rounded-full bg-surface/90 backdrop-blur-md border border-border shadow-soft flex items-center gap-2 text-xs font-sans font-medium text-text-main">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>Live via Zoom &bull; 8 Batches IST</span>
-                  </div>
+              <div>
+                <span className="font-sans text-2xl sm:text-3xl lg:text-4xl font-light text-white block">
+                  8batches
+                </span>
+                <span className="font-sans text-xs text-white/80 block mt-0.5">
+                  every weekday.IST
+                </span>
+              </div>
 
-                  {/* Floating Overlay Badge: Free Diet Plan */}
-                  <div className="absolute bottom-5 right-5 px-3.5 py-1.5 rounded-full bg-amber-400 text-stone-950 font-bold shadow-soft flex items-center gap-1.5 text-xs font-sans">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Free Personalized Diet Plan</span>
-                  </div>
-                </SurfaceCard>
+              <div>
+                <span className="font-sans text-2xl sm:text-3xl lg:text-4xl font-light text-white block">
+                  100%Live
+                </span>
+                <span className="font-sans text-xs text-white/80 block mt-0.5">
+                  real-time posture cues
+                </span>
               </div>
             </motion.div>
           </div>
         </section>
 
         {/* ========================================================
-            2. KEY TRUST & PERFORMANCE METRICS
+            2. THREE WAYS TO TRAIN WITH US (The Form Collective)
         ======================================================== */}
-        <section className="border-y border-border/60 bg-surfaceVariant/50 py-12 px-4 sm:px-6 md:px-8">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {STATS_DATA.map((stat) => {
-              const Icon = stat.icon;
-              return (
-                <div key={stat.label} className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-surface border border-border text-primary flex items-center justify-center flex-shrink-0 shadow-xs">
-                    <Icon className="w-5 h-5 stroke-[1.75]" />
-                  </div>
-                  <div>
-                    <span className="font-display text-2xl sm:text-3xl font-bold text-text-main block">
-                      {stat.number}
-                    </span>
-                    <span className="font-sans text-xs uppercase tracking-wider font-semibold text-text-main block mt-0.5">
-                      {stat.label}
-                    </span>
-                    <p className="font-sans text-xs text-text-muted mt-1">
-                      {stat.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
+        <ThreeWaysToTrain />
 
         {/* ========================================================
-            3. THREE WAYS TO TRAIN WITH US
-        ======================================================== */}
-        <div id="pathways">
-          <ThreeWaysToTrain />
-        </div>
-
-        {/* ========================================================
-            4. DAILY LIVE BATCH TIMINGS & WEEKLY FOCUS CALENDAR
+            3. DAILY LIVE BATCHES (Neon Ribbon & Asana Cutout)
         ======================================================== */}
         <WeeklyScheduleAndBatches />
+
+        {/* ========================================================
+            4. SIMPLE MEMBERSHIP PLANS (3-Tier Pricing Architecture)
+        ======================================================== */}
+        <PricingArchitecture />
 
         {/* ========================================================
             5. WHY CHOOSE XANSO FITNESS
@@ -346,47 +227,46 @@ export default function HomePage() {
         </div>
 
         {/* ========================================================
-            7. MEET YOUR INSTRUCTORS (All 4 Instructors with Batches)
+            7. MEET YOUR INSTRUCTORS (Certified Master Trainers)
         ======================================================== */}
-        <div id="training">
+        <div id="instructors">
           <TrainerProfiles />
         </div>
 
         {/* ========================================================
-            8. PRICING ARCHITECTURE (2 / 3 / 6 Months with 10% Off)
+            8. SUCCESS STORIES & VERIFIED GOOGLE REVIEWS
         ======================================================== */}
-        <PricingArchitecture />
+        <div id="reviews">
+          <SuccessStories />
+        </div>
 
         {/* ========================================================
-            9. SUCCESS STORIES & VERIFIED GOOGLE REVIEWS
+            9. EXPERT BLOGS & LIFESTYLE GUIDES
         ======================================================== */}
-        <SuccessStories />
+        <div id="blogs">
+          <ExpertBlogs />
+        </div>
 
         {/* ========================================================
-            10. EXPERT BLOGS & LIFESTYLE GUIDES
-        ======================================================== */}
-        <ExpertBlogs />
-
-        {/* ========================================================
-            11. FREQUENTLY ASKED QUESTIONS
+            10. FREQUENTLY ASKED QUESTIONS
         ======================================================== */}
         <XansoFAQ />
 
         {/* ========================================================
-            12. DIRECT CONTACT SECTION
+            11. DIRECT CONNECT & WHATSAPP SECTION
         ======================================================== */}
-        <section id="contact" className="py-20 md:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+        <section id="contact" className="py-24 md:py-36 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left: Contact Details */}
             <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-primary">
+              <span className="text-xs uppercase tracking-[0.2em] font-sans font-bold text-forest-deep px-3.5 py-1.5 rounded-full bg-forest-deep/5 border border-forest-deep/10">
                 WE ARE HERE TO HELP
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-normal text-text-main">
+              <h2 className="font-display text-4xl sm:text-5xl font-normal text-forest-deep leading-tight">
                 Connect with Us Directly
               </h2>
-              <p className="font-sans text-xs sm:text-sm text-text-muted leading-relaxed">
-                Have questions about batch timings, instructor schedules, customized diet plans, or claiming your 10% extra discount? Reach out to us directly on WhatsApp or submit a quick note.
+              <p className="font-sans text-sm sm:text-base text-muted-gray leading-relaxed">
+                Have questions about batch timings, instructor schedules, customized diet plans, or claiming your membership? Reach out to us directly on WhatsApp or submit a quick note.
               </p>
 
               <div className="space-y-4 pt-4 font-sans text-xs sm:text-sm">
@@ -395,65 +275,64 @@ export default function HomePage() {
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors group"
+                  className="flex items-center gap-4 p-5 rounded-3xl bg-neutral-surface border border-black/5 hover:border-lime-accent transition-all duration-300 group shadow-soft"
                 >
-                  <div className="w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-soft group-hover:scale-105 transition-transform">
-                    <MessageCircle className="w-5 h-5 fill-current" />
+                  <div className="w-12 h-12 rounded-full bg-lime-accent text-lime-text flex items-center justify-center flex-shrink-0 shadow-soft group-hover:scale-105 transition-transform">
+                    <MessageCircle className="w-6 h-6 fill-current" />
                   </div>
                   <div>
-                    <span className="font-bold text-emerald-900 block text-sm">
-                      WhatsApp Quick Support
+                    <span className="font-bold text-charcoal block text-sm">
+                      WhatsApp Instant Support
                     </span>
-                    <span className="text-emerald-700 font-semibold text-sm">
+                    <span className="text-forest-deep font-semibold text-sm">
                       +91 91058 37321
                     </span>
-                    <span className="text-[11px] text-emerald-600 block mt-0.5">
-                      Instant response &bull; 10% discount claim
+                    <span className="text-[11px] text-muted-gray block mt-0.5">
+                      Instant response &bull; Female-only batch consultation
                     </span>
                   </div>
                 </a>
 
-                <div className="flex items-center gap-3 p-2">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                <div className="flex items-center gap-3 p-3">
+                  <div className="w-10 h-10 rounded-full bg-forest-deep/5 text-forest-deep flex items-center justify-center flex-shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-medium text-text-main block">Email Support</span>
-                    <span className="text-text-muted">contact@xanso.in</span>
+                    <span className="font-medium text-charcoal block">Email Support</span>
+                    <span className="text-muted-gray">contact@xanso.in</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 p-2">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                <div className="flex items-center gap-3 p-3">
+                  <div className="w-10 h-10 rounded-full bg-forest-deep/5 text-forest-deep flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="font-medium text-text-main block">Lineage Roots &amp; Centers</span>
-                    <span className="text-text-muted">Rishikesh &bull; Bengaluru &bull; Mumbai &bull; Delhi NCR</span>
+                    <span className="font-medium text-charcoal block">Lineage Roots &amp; Centers</span>
+                    <span className="text-muted-gray">Rishikesh &bull; Bengaluru &bull; Mumbai &bull; Delhi NCR</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Right: Interactive Contact Form */}
-            <SurfaceCard className="lg:col-span-7 p-6 sm:p-8 border border-border shadow-soft">
+            <div className="lg:col-span-7 bg-neutral-surface rounded-3xl p-8 sm:p-10 border border-black/5 shadow-soft">
               {contactSubmitted ? (
                 <div className="text-center py-12 space-y-3">
-                  <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
-                  <h3 className="font-display text-2xl font-medium text-text-main">
+                  <CheckCircle2 className="w-12 h-12 text-forest-deep mx-auto" />
+                  <h3 className="font-display text-2xl font-medium text-charcoal">
                     Message Received!
                   </h3>
-                  <p className="font-sans text-xs sm:text-sm text-text-muted max-w-sm mx-auto">
-                    Thank you for reaching out. We will connect with you on WhatsApp (+91 91058 37321) or email within 24 hours.
+                  <p className="font-sans text-xs sm:text-sm text-muted-gray max-w-sm mx-auto">
+                    Thank you for reaching out. We will connect with you on WhatsApp (+91 91058 37321) within 24 hours.
                   </p>
-                  <Button
-                    variant="secondary"
-                    size="md"
+                  <button
+                    type="button"
                     onClick={() => setContactSubmitted(false)}
-                    className="mt-4"
+                    className="mt-4 px-6 py-2.5 rounded-full bg-charcoal text-white text-xs font-semibold"
                   >
                     Send Another Note
-                  </Button>
+                  </button>
                 </div>
               ) : (
                 <form
@@ -465,72 +344,75 @@ export default function HomePage() {
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                      <label className="text-xs font-semibold uppercase tracking-wider text-charcoal">
                         Your Name
                       </label>
                       <input
                         type="text"
                         required
                         placeholder="Rohan / Priya"
-                        className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                        className="w-full px-4 py-3 rounded-2xl border border-black/10 bg-white text-xs sm:text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-lime-accent"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                      <label className="text-xs font-semibold uppercase tracking-wider text-charcoal">
                         Phone / WhatsApp Number
                       </label>
                       <input
                         type="tel"
                         required
                         placeholder="+91 98765 43210"
-                        className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                        className="w-full px-4 py-3 rounded-2xl border border-black/10 bg-white text-xs sm:text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-lime-accent"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-charcoal">
                       Inquiry Focus
                     </label>
-                    <select className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30">
-                      <option>Claim 10% Extra Discount on 2/3/6 Month Plan</option>
-                      <option>1:1 Personal Yoga &amp; Strength Training</option>
-                      <option>7-Day Face Yoga Masterclass</option>
-                      <option>Desk Posture &amp; Spine Relief for IT Professionals</option>
-                      <option>Corporate Team Wellness Batches</option>
+                    <select className="w-full px-4 py-3 rounded-2xl border border-black/10 bg-white text-xs sm:text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-lime-accent">
+                      <option>Choose a Membership Plan (2 / 3 / 6 Months)</option>
+                      <option>1:1 Personal Transformation Program</option>
+                      <option>Female-Only Live Zoom Batches</option>
+                      <option>Desk Posture &amp; Spine Relief</option>
+                      <option>Corporate Team Wellness</option>
                     </select>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-text-main">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-charcoal">
                       Your Message
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder="Tell us about your fitness goals, preferred batch timings (Morning/Evening IST), or any back/neck pain..."
-                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-surfaceVariant text-xs sm:text-sm text-text-main focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      placeholder="Tell us about your fitness goals, preferred batch timings (Morning/Evening IST), or any body concerns..."
+                      className="w-full px-4 py-3 rounded-2xl border border-black/10 bg-white text-xs sm:text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-lime-accent"
                     />
                   </div>
 
-                  <Button variant="primary" size="lg" type="submit" className="w-full justify-center">
-                    <Send className="w-4 h-4 mr-2" />
-                    Submit Inquiry (Claim 10% Off)
-                  </Button>
+                  <button
+                    type="submit"
+                    className="w-full py-4 px-6 rounded-full bg-charcoal hover:bg-black text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-card hover:scale-[1.01] transition-all"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>Submit Inquiry</span>
+                  </button>
                 </form>
               )}
-            </SurfaceCard>
+            </div>
           </div>
         </section>
       </main>
 
-      {/* Indian Wellness Footer */}
+      {/* Footer */}
       <Footer />
 
-      {/* Global AI Wellness Concierge */}
+      {/* AI Wellness Concierge */}
       <WellnessConcierge />
 
-      {/* Global Floating WhatsApp Button (+91 91058 37321) */}
+      {/* Floating WhatsApp Button (+91 91058 37321) */}
       <WhatsAppButton phoneNumber="919105837321" />
     </div>
   );
