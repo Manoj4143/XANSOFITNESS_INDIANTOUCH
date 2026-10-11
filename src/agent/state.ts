@@ -1,4 +1,15 @@
-export type AgentIntent = "casual_chat" | "assessment" | "booking" | "support";
+export type AgentIntent =
+  | "casual_chat"
+  | "assessment"
+  | "booking"
+  | "support"
+  | "schedule"
+  | "pricing"
+  | "trainers"
+  | "female_batch"
+  | "diet"
+  | "face_yoga"
+  | "posture";
 
 export interface AssessmentProgress {
   currentQuestionIndex: number;

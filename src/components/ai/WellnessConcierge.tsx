@@ -20,10 +20,84 @@ function extractText(message: any): string {
 }
 
 const SUGGESTED_PROMPTS = [
+  "Daily batch timings",
+  "Membership plans & 10% off",
+  "Dedicated female batches",
+  "Free Indian diet plan",
   "Relieve desk posture tension",
-  "Recommend a morning flow",
-  "Calm breathwork for sleep",
 ];
+
+function renderInlineFormatting(text: string, keyPrefix: string): React.ReactNode {
+  const boldRegex = /\*\*([^*]+)\*\*/g;
+  const segments: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = boldRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      segments.push(text.slice(lastIndex, match.index));
+    }
+    segments.push(
+      <strong key={`${keyPrefix}-b-${match.index}`} className="font-semibold text-text-main">
+        {match[1]}
+      </strong>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    segments.push(text.slice(lastIndex));
+  }
+  return <React.Fragment key={keyPrefix}>{segments}</React.Fragment>;
+}
+
+function FormattedMessage({ content, isUser }: { content: string; isUser: boolean }) {
+  if (isUser) {
+    return <span className="whitespace-pre-wrap">{content}</span>;
+  }
+
+  const parts: React.ReactNode[] = [];
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(content)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(renderInlineFormatting(content.slice(lastIndex, match.index), `txt-${lastIndex}`));
+    }
+    const linkText = match[1];
+    const linkUrl = match[2];
+    const isAnchor = linkUrl.startsWith("#");
+    const isExternal = linkUrl.startsWith("http");
+
+    parts.push(
+      <a
+        key={`link-${match.index}`}
+        href={linkUrl}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        onClick={(e) => {
+          if (isAnchor) {
+            e.preventDefault();
+            const el = document.querySelector(linkUrl);
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        }}
+        className="inline-flex items-center gap-1 font-semibold text-emerald-800 hover:text-emerald-950 underline underline-offset-2 transition-colors mx-0.5"
+      >
+        {linkText}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < content.length) {
+    parts.push(renderInlineFormatting(content.slice(lastIndex), `txt-${lastIndex}`));
+  }
+
+  return <div className="space-y-1 whitespace-pre-wrap">{parts}</div>;
+}
 
 export function WellnessConcierge() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -183,13 +257,13 @@ export function WellnessConcierge() {
                     </span>
                     <div
                       className={cn(
-                        "max-w-[85%] px-4 py-3 leading-relaxed whitespace-pre-wrap",
+                        "max-w-[85%] px-4 py-3 leading-relaxed",
                         isUser
                           ? "bg-primary text-white rounded-2xl rounded-tr-sm shadow-xs"
                           : "bg-surfaceVariant text-text-main rounded-2xl rounded-tl-sm border border-border/40"
                       )}
                     >
-                      {textContent}
+                      <FormattedMessage content={textContent} isUser={isUser} />
                     </div>
                   </div>
                 );

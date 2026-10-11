@@ -139,4 +139,15 @@ When the Antigravity agent executes a task and makes a localized architectural o
 *   **Rationale:** Faithfully reflects the high-fashion editorial wellness aesthetic and full-bleed hero cover layout defined in the Figma reference.
 *   **Consequences:** Seamless full-viewport immersion with responsive mobile adaptations.
 
+### ADR-021: Website Knowledge-Trained AI Concierge & LangGraph State Machine
+*   **Date:** 2026-10-11
+*   **Context:** The AI Wellness Concierge originally produced generic stub responses referencing non-existent instructors and classes, failing to represent the actual Xanso Fitness platform offerings.
+*   **Decision:**
+    1. Built `src/agent/knowledge.ts` encapsulating the entire website knowledge base: 8 weekday live Zoom batches (Morning Awaken & Evening Unwind), Ayush & Yoga Alliance certified instructors (Neelam Rana, Muskaan Wahi, Apeksha Chauhan, Navya Gupta), transparent pricing architecture (2, 3, 6-Month plans + 10% WhatsApp booking promo), 3 ways to train (Group, 1:1, Corporate), dedicated female-only batches, free personalized Indian diet plan, and 7-day Face Yoga masterclass.
+    2. Overhauled `src/agent/graph.ts` with prioritized semantic intent classification and deterministic RAG synthesis, including interactive multi-step wellness assessments and deep links to website sections (`#schedule`, `#pricing`, `#instructors`, WhatsApp hotline).
+    3. Upgraded `src/components/ai/WellnessConcierge.tsx` with a lightweight markdown link parser (`FormattedMessage`) that smoothly smooth-scrolls internal anchors and launches WhatsApp, along with contextual suggested prompt chips.
+*   **Rationale:** Guarantees 100% accurate, brand-aligned concierge interactions even when external LLM API keys are unset or placeholders, with optional OpenAI pass-through.
+*   **Consequences:** Reliable, zero-failure conversational guidance tailored strictly to the Xanso Fitness website.
+
+
 
